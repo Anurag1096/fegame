@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import TicTacToeComp from "../component/features/ticTac";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function Home() {
           />
           <div className={styles.intro}>
             <h1>To get started, edit the index.tsx file.</h1>
+            <TicTacToeComp/>
             <p>
               Looking for a starting point or more instructions? Head over to{" "}
               <a
