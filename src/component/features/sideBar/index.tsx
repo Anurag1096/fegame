@@ -1,5 +1,5 @@
 export default function SideBar(){
     return (<>
-    <div>Sidebar</div>
+    <div>Sidebar update</div>
     </>)
 }
