@@ -1,0 +1,17 @@
+.grid {
+display:grid;
+grid-template-columns: auto auto auto;
+background-color: aquamarine;
+padding: 2px;
+width: 10rem;
+height: 10rem;
+}
+
+.grid div{
+    background-color: aliceblue;
+    border: 1px solid;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+
+}
