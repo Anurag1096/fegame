@@ -3,6 +3,7 @@ display:grid;
 grid-template-columns: auto auto auto;
 background-color: aquamarine;
 padding: 2px;
+color: red;
 width: 10rem;
 height: 10rem;
 }
