@@ -6,8 +6,7 @@ export interface TicTacToe{
 
 export interface CurrentTttPlayer{
     name:string;
-    turns:number;
     mark:"X"|"O";
-    
-
+    moves:number[];
 }
+

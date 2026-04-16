@@ -8,6 +8,7 @@ export default function TicTacToeComp() {
 
     const gridArray = new Array(9).fill(0)
     const [grid,setGrid]=useState<number[]>(gridArray) 
+    const [currentPlayer,setCurrentPlayer]=useState(null)
     function handleGridClick(e:React.MouseEvent<HTMLDivElement>){
         e.preventDefault()
         console.log(e.target)
