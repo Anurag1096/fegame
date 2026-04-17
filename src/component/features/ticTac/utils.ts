@@ -5,7 +5,7 @@ interface PropsState{
 }
 
 export function figureOutWinner({player1,player2}:PropsState){
-    
+
 }
 
 
