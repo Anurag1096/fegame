@@ -1,18 +1,27 @@
 .grid {
 display:grid;
 grid-template-columns: auto auto auto;
-background-color: aquamarine;
-padding: 2px;
-color: red;
-width: 10rem;
-height: 10rem;
+background-color: rgb(255, 255, 255);
+padding: 12px;
+border-radius:12px;
+gap:12px;
+color:black;
+
+
 }
 
 .grid div{
-    background-color: aliceblue;
+    background-color: rgb(238, 240, 243);
     border: 1px solid;
+    border-radius: 12px;
+    width:10rem;
+    height:10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
-    font-size: 12px;
+    font-size: 32px;
     text-align: center;
+    cursor:pointer;
 
 }
