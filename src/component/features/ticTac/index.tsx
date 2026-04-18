@@ -2,6 +2,7 @@
 import styles from './style.module.css'
 import { useState } from 'react'
 import { CurrentTttPlayer } from './types'
+import { Squircle } from '@squircle-js/react'
 export default function TicTacToeComp() {
     
     const gridArray = new Array(9).fill(0)
@@ -31,15 +32,19 @@ export default function TicTacToeComp() {
 
     return (<>
         <div>Tic tac toe render</div>
-        <div className={styles.grid}>
+        <Squircle cornerRadius={25} cornerSmoothing={0.7} className={styles.grid}>
 
             {grid.map((gridBlock, index) => {
-                return (<div
-                    
-                    key={`${gridBlock}${index}`}
-                    onClick={(e) => handleGridClick(e, index)}
-                >{gridBlock ? gridBlock : " "}</div>)
+                return (
+                <Squircle  
+                cornerRadius={25}
+                cornerSmoothing={0.7}  
+                key={`${gridBlock}${index}`}
+                onClick={(e) => handleGridClick(e, index)}
+                >{gridBlock ? gridBlock : " "}
+                
+                </Squircle>)
             })}
-        </div>
+        </Squircle>
     </>)
 }

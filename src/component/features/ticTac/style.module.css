@@ -3,7 +3,6 @@ display:grid;
 grid-template-columns: auto auto auto;
 background-color: rgb(255, 255, 255);
 padding: 12px;
-border-radius:12px;
 gap:12px;
 color:black;
 
@@ -13,7 +12,6 @@ color:black;
 .grid div{
     background-color: rgb(238, 240, 243);
     border: 1px solid;
-    border-radius: 12px;
     width:10rem;
     height:10rem;
     display: flex;
