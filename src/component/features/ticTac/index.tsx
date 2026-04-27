@@ -11,6 +11,7 @@ export default function TicTacToeComp() {
         X: { name: 'player1', mark: 'X', moves: [] },
         O: { name: 'player2', mark: "O", moves: [] }
     })
+    const [winner,setWinner]=useState<string>("")
     const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X")
 
     /* 
@@ -46,5 +47,7 @@ export default function TicTacToeComp() {
                 </Squircle>)
             })}
         </Squircle>
+
+        <div>{winner?`Result: ${winner} Winner`:" ---"}</div>
     </>)
 }
