@@ -1,4 +1,4 @@
-'use client'
+
 import styles from './style.module.css'
 import { useState, useEffect,useRef } from 'react'
 import { CurrentTttPlayer } from './types'
@@ -21,14 +21,14 @@ export default function TicTacToeComp() {
     */
 
     useEffect(() => {
-        let result = figureOutWinner(player[currentPlayer])
+        let result = figureOutWinner(player[currentPlayer==="X"?"O":"X"])
         if (result.success) {
             let win = result.name
             setWinner(win ? win : "")
             return
         }
         if (!grid.includes(0)) setDraw("Draw")
-    }, [grid,player])
+    }, [grid])
 
     /* 
     -The handle grid click will just add the clicked grid value to the 
