@@ -1,27 +1,32 @@
 
 import styles from './style.module.css'
-import { useState, useEffect,useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { CurrentTttPlayer } from './types'
 import { Squircle } from '@squircle-js/react'
 import { figureOutWinner } from './utils'
+import { useGrid } from './hooks/useGrid'
+import { usePlayer } from './hooks/usePlayer'
 export default function TicTacToeComp() {
 
-    const gridArray = new Array(9).fill(0)
-    const [grid, setGrid] = useState(gridArray)
-    const [player, setPlayer] = useState<{ X: CurrentTttPlayer, O: CurrentTttPlayer }>({
-        X: { name: 'player1', mark: 'X', moves: [], success: false },
-        O: { name: 'player2', mark: "O", moves: [], success: false }
-    })
-    const [winner, setWinner] = useState<string>("")
-    const [draw ,setDraw] =useState<string>("")
-    const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X")
-  
+    const { grid, setGrid } = useGrid()
+    const { 
+        player, 
+        setPlayer, 
+        currentPlayer,
+        setCurrentPlayer, 
+        draw, 
+        setDraw, 
+        winner, 
+        setWinner 
+    } = usePlayer()
+
+
     /*
     The checking will be handled by the use effecy function to update values
     */
 
     useEffect(() => {
-        let result = figureOutWinner(player[currentPlayer==="X"?"O":"X"])
+        let result = figureOutWinner(player[currentPlayer === "X" ? "O" : "X"])
         if (result.success) {
             let win = result.name
             setWinner(win ? win : "")
@@ -35,16 +40,16 @@ export default function TicTacToeComp() {
     -respective player , when the user will click a grid, its value of the row will
     be saved to currentPlayer state , this sate will  
     */
-   function handleMatchRestart(){
-    setGrid(gridArray)
-    setPlayer({
-        X: { name: 'player1', mark: 'X', moves: [], success: false },
-        O: { name: 'player2', mark: "O", moves: [], success: false }
-    })
-    setCurrentPlayer('X')
-    setWinner("")
-    setDraw("")
-   }
+    function handleMatchRestart() {
+        setGrid(new Array(9).fill(0))
+        setPlayer({
+            X: { name: 'player1', mark: 'X', moves: [], success: false },
+            O: { name: 'player2', mark: "O", moves: [], success: false }
+        })
+        setCurrentPlayer('X')
+        setWinner("")
+        setDraw("")
+    }
     function handleGridClick(e: React.MouseEvent<HTMLDivElement>, index: number) {
         e.preventDefault()
         if (winner) return
@@ -63,13 +68,13 @@ export default function TicTacToeComp() {
 
     return (<>
         <div>Tic tac toe render</div>
-        <Squircle  cornerRadius={25} cornerSmoothing={0.7} className={styles.grid}>
+        <Squircle cornerRadius={25} cornerSmoothing={0.7} className={styles.grid}>
 
             {grid.map((gridBlock, index) => {
                 return (
                     <Squircle
-                    /// <reference path="" />
-                        
+                        /// <reference path="" />
+
                         cornerRadius={25}
                         cornerSmoothing={0.7}
                         key={`${gridBlock}${index}`}
@@ -84,6 +89,6 @@ export default function TicTacToeComp() {
         </div>
 
         <div>{winner ? `${winner} Winner` : " "}</div>
-        <div>{draw ? `Match Drawn`:" "}</div>
+        <div>{draw ? `Match Drawn` : " "}</div>
     </>)
 }
