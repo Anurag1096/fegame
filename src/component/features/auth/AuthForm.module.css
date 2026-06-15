@@ -1,0 +1,129 @@
+.page {
+  --surface: #ffffff;
+  --surface-muted: #f4f4f5;
+  --text-primary: #0a0a0a;
+  --text-secondary: #52525b;
+  --accent: #18181b;
+  --accent-hover: #27272a;
+  --border: #e4e4e7;
+  --error: #dc2626;
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--surface-muted);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.backLink:hover {
+  color: var(--text-primary);
+}
+
+.title {
+  margin-bottom: 8px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  margin-bottom: 28px;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-muted);
+  color: var(--text-primary);
+  font: inherit;
+}
+
+.input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.submit {
+  margin-top: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  background: var(--accent);
+  color: #fafafa;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background: var(--accent-hover);
+}
+
+.footerText {
+  margin-top: 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.footerLink {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  .page {
+    --surface: #111113;
+    --surface-muted: #09090b;
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --accent: #fafafa;
+    --accent-hover: #e4e4e7;
+    --border: #27272a;
+  }
+
+  .submit {
+    color: #09090b;
+  }
+}

@@ -9,15 +9,15 @@ import { usePlayer } from './hooks/usePlayer'
 export default function TicTacToeComp() {
 
     const { grid, setGrid } = useGrid()
-    const { 
-        player, 
-        setPlayer, 
+    const {
+        player,
+        setPlayer,
         currentPlayer,
-        setCurrentPlayer, 
-        draw, 
-        setDraw, 
-        winner, 
-        setWinner 
+        setCurrentPlayer,
+        draw,
+        setDraw,
+        winner,
+        setWinner
     } = usePlayer()
 
 
