@@ -100,6 +100,17 @@
   background: var(--accent-hover);
 }
 
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
 .footerText {
   margin-top: 20px;
   text-align: center;

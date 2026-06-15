@@ -1,3 +1,3 @@
-import { SignupPage } from "@/component/features/auth/AuthPage";
+import SignupPage from "@/component/features/auth/signup/SignupPage";
 
 export default SignupPage;
