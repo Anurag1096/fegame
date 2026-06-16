@@ -1,0 +1,110 @@
+.sidebar {
+  --surface: #ffffff;
+  --surface-muted: #f4f4f5;
+  --text-primary: #0a0a0a;
+  --text-secondary: #52525b;
+  --accent: #18181b;
+  --border: #e4e4e7;
+  --sidebar-width: clamp(14rem, 22vw, 18rem);
+  --sidebar-padding-inline: clamp(0.75rem, 2vw, 1rem);
+  --sidebar-padding-block: clamp(1rem, 3vw, 1.5rem);
+  --sidebar-radius: 0.75rem;
+  --sidebar-gap: 0.25rem;
+
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--sidebar-width);
+  max-width: 100%;
+  min-height: 100dvh;
+  padding: var(--sidebar-padding-block) var(--sidebar-padding-inline);
+  background: var(--surface);
+  border-right: 0.0625rem solid var(--border);
+  color: var(--text-primary);
+}
+
+.brand {
+  margin-bottom: 1.5rem;
+  padding: 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.user {
+  margin-bottom: 1.5rem;
+  padding: 0 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sidebar-gap);
+}
+
+.link,
+.logout {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--sidebar-radius);
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.9375rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.link:hover,
+.logout:hover {
+  background: var(--surface-muted);
+}
+
+.linkActive {
+  background: var(--surface-muted);
+  font-weight: 600;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 0.0625rem solid var(--border);
+}
+
+@media (max-width: 47.9375rem) {
+  .sidebar {
+    --sidebar-width: min(85vw, 18rem);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: none;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+    box-shadow: 0.5rem 0 2rem rgba(0, 0, 0, 0.12);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .sidebar {
+    --surface: #111113;
+    --surface-muted: #18181b;
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --accent: #fafafa;
+    --border: #27272a;
+  }
+}

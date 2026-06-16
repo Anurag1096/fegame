@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Geist } from "next/font/google";
+import DashboardLayout from "@/component/features/dashboard/DashboardLayout";
 import { useAuthStore } from "@/stores/authStore";
 import { useRequireAuth } from "@/hooks/useRequireAuth";
 import styles from "./Dashboard.module.css";
@@ -20,27 +20,21 @@ export default function Dashboard() {
     router.replace("/login");
   }
 
-  if (!isReady) {
+  if (!isReady || !user) {
     return (
-      <div className={`${styles.page} ${geistSans.variable}`}>
+      <div className={`${styles.loadingPage} ${geistSans.variable}`}>
         <p className={styles.loading}>Loading dashboard...</p>
       </div>
     );
   }
 
   return (
-    <div className={`${styles.page} ${geistSans.variable}`}>
-      <header className={styles.header}>
+    <div className={geistSans.variable}>
+      <DashboardLayout username={user.username} onLogout={handleLogout}>
         <h1 className={styles.title}>Dashboard</h1>
-        <button type="button" className={styles.logout} onClick={handleLogout}>
-          Log out
-        </button>
-      </header>
-      <p className={styles.welcome}>Welcome, {user?.username}.</p>
-      <p className={styles.hint}>Matchmaking and rooms will live here next.</p>
-      <Link href="/" className={styles.link}>
-        Back to home
-      </Link>
+        <p className={styles.welcome}>Welcome back, {user.username}.</p>
+        <p className={styles.hint}>Matchmaking and rooms will live here next.</p>
+      </DashboardLayout>
     </div>
   );
 }
