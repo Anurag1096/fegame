@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { Geist } from "next/font/google";
 import DashboardLayout from "@/component/features/dashboard/DashboardLayout";
-import { useAuthStore } from "@/stores/authStore";
+import { useLogoutMutation } from "@/component/features/auth/hooks/useAuthSession";
 import { useRequireAuth } from "@/hooks/useRequireAuth";
 import styles from "./Dashboard.module.css";
 
@@ -13,10 +13,10 @@ const geistSans = Geist({
 export default function Dashboard() {
   const router = useRouter();
   const { user, isReady } = useRequireAuth();
-  const logout = useAuthStore((state) => state.logout);
+  const logoutMutation = useLogoutMutation();
 
   async function handleLogout() {
-    await logout();
+    await logoutMutation.mutateAsync();
     router.replace("/login");
   }
 

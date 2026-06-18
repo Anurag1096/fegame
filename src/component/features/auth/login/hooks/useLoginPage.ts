@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { ApiError } from "@/lib/auth/types";
-import { useAuthStore } from "@/stores/authStore";
+import { useLoginMutation } from "../../hooks/useAuthSession";
 import { AuthPageCopy } from "../../types";
 
 const COPY: AuthPageCopy = {
@@ -17,36 +17,35 @@ const COPY: AuthPageCopy = {
 
 export function useLoginPage() {
   const router = useRouter();
-  const login = useAuthStore((state) => state.login);
+  const loginMutation = useLoginMutation();
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
 
     try {
-      await login({ userName, password });
+      await loginMutation.mutateAsync({ userName, password });
       await router.push("/dashboard");
-    } catch (err) {
-      const message =
-        err instanceof ApiError ? err.message : "Unable to log in. Please try again.";
-      setError(message);
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      // Error surfaced via loginMutation.error below
     }
   }
+
+  const error =
+    loginMutation.error instanceof ApiError
+      ? loginMutation.error.message
+      : loginMutation.error
+        ? "Unable to log in. Please try again."
+        : null;
 
   return {
     userName,
     password,
     setUserName,
     setPassword,
-    isSubmitting,
+    isSubmitting: loginMutation.isPending,
     error,
     handleSubmit,
     copy: COPY,

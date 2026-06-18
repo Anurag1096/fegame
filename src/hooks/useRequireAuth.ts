@@ -1,20 +1,19 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthSession } from "@/component/features/auth/hooks/useAuthSession";
 
 export function useRequireAuth() {
   const router = useRouter();
-  const isHydrated = useAuthStore((state) => state.isHydrated);
-  const user = useAuthStore((state) => state.user);
+  const { data: user, isFetched, isSuccess } = useAuthSession();
 
   useEffect(() => {
-    if (isHydrated && !user) {
+    if (isFetched && !isSuccess) {
       router.replace("/login");
     }
-  }, [isHydrated, user, router]);
+  }, [isFetched, isSuccess, router]);
 
   return {
-    user,
-    isReady: isHydrated && Boolean(user),
+    user: user ?? null,
+    isReady: isSuccess && Boolean(user),
   };
 }

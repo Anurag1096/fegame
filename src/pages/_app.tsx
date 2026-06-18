@@ -1,14 +1,22 @@
-import { useEffect } from "react";
+import { useState } from "react";
+import { QueryClientProvider } from "@tanstack/react-query";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthSession } from "@/component/features/auth/hooks/useAuthSession";
+import { createQueryClient } from "@/lib/query/queryClient";
+
+function AuthSessionBootstrap() {
+  useAuthSession();
+  return null;
+}
 
 export default function App({ Component, pageProps }: AppProps) {
-  const hydrate = useAuthStore((state) => state.hydrate);
+  const [queryClient] = useState(() => createQueryClient());
 
-  useEffect(() => {
-    void hydrate();
-  }, [hydrate]);
-
-  return <Component {...pageProps} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthSessionBootstrap />
+      <Component {...pageProps} />
+    </QueryClientProvider>
+  );
 }

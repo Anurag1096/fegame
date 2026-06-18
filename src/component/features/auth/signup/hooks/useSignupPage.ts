@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { ApiError } from "@/lib/auth/types";
-import { useAuthStore } from "@/stores/authStore";
+import { useSignupMutation } from "../../hooks/useAuthSession";
 import { AuthPageCopy } from "../../types";
 
 const COPY: AuthPageCopy = {
@@ -17,30 +17,29 @@ const COPY: AuthPageCopy = {
 
 export function useSignupPage() {
   const router = useRouter();
-  const signup = useAuthStore((state) => state.signup);
+  const signupMutation = useSignupMutation();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
 
     try {
-      await signup({ username, email, password });
+      await signupMutation.mutateAsync({ username, email, password });
       await router.push("/dashboard");
-    } catch (err) {
-      const message =
-        err instanceof ApiError ? err.message : "Unable to sign up. Please try again.";
-      setError(message);
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      // Error surfaced via signupMutation.error below
     }
   }
+
+  const error =
+    signupMutation.error instanceof ApiError
+      ? signupMutation.error.message
+      : signupMutation.error
+        ? "Unable to sign up. Please try again."
+        : null;
 
   return {
     username,
@@ -49,7 +48,7 @@ export function useSignupPage() {
     setUsername,
     setEmail,
     setPassword,
-    isSubmitting,
+    isSubmitting: signupMutation.isPending,
     error,
     handleSubmit,
     copy: COPY,
