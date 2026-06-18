@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const hydrate = useAuthStore((state) => state.hydrate);
 
   useEffect(() => {
-    hydrate();
+    void hydrate();
   }, [hydrate]);
 
   return <Component {...pageProps} />;

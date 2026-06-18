@@ -3,14 +3,8 @@ export type AuthUser = {
   username: string;
 };
 
-export type AuthResponse = {
-  accessToken: string;
-};
-
-export type JwtPayload = {
-  sub: number;
-  userName: string;
-  exp?: number;
+export type AuthUserResponse = {
+  user: AuthUser;
 };
 
 export type ApiErrorBody = {

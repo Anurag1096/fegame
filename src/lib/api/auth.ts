@@ -1,5 +1,5 @@
-import { AuthResponse } from "@/lib/auth/types";
-import { postJson } from "./client";
+import { AuthUser, AuthUserResponse } from "@/lib/auth/types";
+import { getJson, postJson } from "./client";
 
 export type LoginRequest = {
   userName: string;
@@ -13,9 +13,21 @@ export type SignupRequest = {
 };
 
 export function login(request: LoginRequest) {
-  return postJson<AuthResponse>("/auth/login", request);
+  return postJson<AuthUserResponse>("/auth/login", request);
 }
 
 export function signup(request: SignupRequest) {
-  return postJson<AuthResponse>("/auth/signup", request);
+  return postJson<AuthUserResponse>("/auth/signup", request);
+}
+
+export function getMe() {
+  return getJson<AuthUser>("/auth/me");
+}
+
+export function refreshSession() {
+  return postJson<AuthUserResponse>("/auth/refresh", {});
+}
+
+export function logout() {
+  return postJson<{ message: string }>("/auth/logout", {});
 }

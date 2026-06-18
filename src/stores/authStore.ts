@@ -1,64 +1,70 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import * as authApi from "@/lib/api/auth";
 import { AuthUser } from "@/lib/auth/types";
-import { isTokenExpired, userFromToken } from "@/lib/auth/token";
+
+const LEGACY_AUTH_STORAGE_KEY = "fegame-auth";
 
 type AuthState = {
-  accessToken: string | null;
   user: AuthUser | null;
   isHydrated: boolean;
   login: (credentials: authApi.LoginRequest) => Promise<void>;
   signup: (credentials: authApi.SignupRequest) => Promise<void>;
-  logout: () => void;
-  hydrate: () => void;
+  logout: () => Promise<void>;
+  hydrate: () => Promise<void>;
 };
 
-function resolveSession(accessToken: string | null): Pick<AuthState, "accessToken" | "user"> {
-  if (!accessToken || isTokenExpired(accessToken)) {
-    return { accessToken: null, user: null };
+function clearLegacyTokenStorage() {
+  if (typeof window === "undefined") {
+    return;
   }
 
-  const user = userFromToken(accessToken);
-  if (!user) {
-    return { accessToken: null, user: null };
-  }
-
-  return { accessToken, user };
+  localStorage.removeItem(LEGACY_AUTH_STORAGE_KEY);
 }
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      accessToken: null,
-      user: null,
-      isHydrated: false,
+export const useAuthStore = create<AuthState>((set, get) => ({
+  user: null,
+  isHydrated: false,
 
-      login: async (credentials) => {
-        const { accessToken } = await authApi.login(credentials);
-        set(resolveSession(accessToken));
-      },
+  login: async (credentials) => {
+    const { user } = await authApi.login(credentials);
+    clearLegacyTokenStorage();
+    set({ user });
+  },
 
-      signup: async (credentials) => {
-        const { accessToken } = await authApi.signup(credentials);
-        set(resolveSession(accessToken));
-      },
+  signup: async (credentials) => {
+    const { user } = await authApi.signup(credentials);
+    clearLegacyTokenStorage();
+    set({ user });
+  },
 
-      logout: () => {
-        set({ accessToken: null, user: null });
-      },
+  logout: async () => {
+    try {
+      await authApi.logout();
+    } finally {
+      clearLegacyTokenStorage();
+      set({ user: null });
+    }
+  },
 
-      hydrate: () => {
-        const { accessToken } = useAuthStore.getState();
-        set({ ...resolveSession(accessToken), isHydrated: true });
-      },
-    }),
-    {
-      name: "fegame-auth",
-      partialize: (state) => ({ accessToken: state.accessToken }),
-      onRehydrateStorage: () => (state) => {
-        state?.hydrate();
-      },
-    },
-  ),
-);
+  hydrate: async () => {
+    if (get().isHydrated) {
+      return;
+    }
+
+    clearLegacyTokenStorage();
+
+    try {
+      const user = await authApi.getMe();
+      set({ user, isHydrated: true });
+      return;
+    } catch {
+      try {
+        const { user } = await authApi.refreshSession();
+        set({ user, isHydrated: true });
+        return;
+      } catch {
+        set({ user: null, isHydrated: true });
+      }
+    }
+  },
+}));

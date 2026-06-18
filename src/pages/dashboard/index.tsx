@@ -15,8 +15,8 @@ export default function Dashboard() {
   const { user, isReady } = useRequireAuth();
   const logout = useAuthStore((state) => state.logout);
 
-  function handleLogout() {
-    logout();
+  async function handleLogout() {
+    await logout();
     router.replace("/login");
   }
 
