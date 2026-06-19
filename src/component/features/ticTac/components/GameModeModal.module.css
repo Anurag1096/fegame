@@ -1,0 +1,95 @@
+.overlay {
+  --surface: #ffffff;
+  --surface-muted: #f4f4f5;
+  --text-primary: #0a0a0a;
+  --text-secondary: #52525b;
+  --border: #e4e4e7;
+
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 1.5rem);
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal {
+  width: min(100%, 24rem);
+  padding: clamp(1.25rem, 4vw, 1.5rem);
+  border: 0.0625rem solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.125rem, 3vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  margin-bottom: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  width: 100%;
+  padding: 1rem;
+  border: 0.0625rem solid var(--border);
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.option:hover {
+  border-color: var(--text-primary);
+  background: var(--surface-muted);
+}
+
+.option:active {
+  transform: scale(0.99);
+}
+
+.optionTitle {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.optionDescription {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+@media (prefers-color-scheme: dark) {
+  .overlay {
+    --surface: #111113;
+    --surface-muted: #18181b;
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --border: #27272a;
+    background: rgba(0, 0, 0, 0.65);
+  }
+}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import CloseIcon from "./icons/CloseIcon";
 import styles from "./SideBar.module.css";
 
 type SideBarProps = {
@@ -32,7 +33,17 @@ export default function SideBar({
     <aside
       className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ""}`}
     >
-      <div className={styles.brand}>FeGame</div>
+      <div className={styles.header}>
+        <div className={styles.brand}>FeGame</div>
+        <button
+          type="button"
+          className={styles.closeButton}
+          aria-label="Close menu"
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </button>
+      </div>
       <p className={styles.user}>Welcome, {username}</p>
 
       <nav className={styles.nav} aria-label="Dashboard navigation">

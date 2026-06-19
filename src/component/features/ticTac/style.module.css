@@ -1,25 +1,121 @@
 .grid {
-display:grid;
-grid-template-columns: auto auto auto;
-background-color: rgb(255, 255, 255);
-padding: 12px;
-gap:12px;
-color:black;
+  --ttt-surface: #ffffff;
+  --ttt-surface-muted: #f4f4f5;
+  --ttt-cell-bg: #fafafa;
+  --ttt-border: #e4e4e7;
+  --ttt-text: #171717;
+  --ttt-text-secondary: #52525b;
+  --ttt-accent: #18181b;
 
-
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.375rem, 2vw, 0.75rem);
+  width: 100%;
+  max-width: min(100%, 22rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  padding: clamp(0.5rem, 2.5vw, 0.875rem);
+  border: 0.0625rem solid var(--ttt-border);
+  border-radius: clamp(1rem, 3vw, 1.25rem);
+  background: var(--ttt-surface-muted);
+  color: var(--ttt-text);
 }
 
-.grid div{
-    background-color: rgb(238, 240, 243);
-    border: 1px solid;
-    width:10rem;
-    height:10rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 32px;
-    text-align: center;
-    cursor:pointer;
+.grid > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1;
+  padding: 0.25rem;
+  border: 0.0625rem solid var(--ttt-border);
+  background: var(--ttt-cell-bg);
+  font-size: clamp(1.5rem, 12vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
 
+.grid > *:hover {
+  background: var(--ttt-surface);
+  border-color: var(--ttt-accent);
+}
+
+.grid > *:active {
+  transform: scale(0.97);
+}
+
+.grid + div {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(0.875rem, 3vw, 1.25rem);
+}
+
+.grid + div button {
+  min-height: 2.75rem;
+  padding: 0.625rem 1.5rem;
+  border: 0.0625rem solid var(--ttt-border);
+  border-radius: 999px;
+  background: var(--ttt-accent);
+  color: #fafafa;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.grid + div button:hover {
+  opacity: 0.9;
+}
+
+.grid + div button:active {
+  transform: scale(0.98);
+}
+
+.grid + div + div,
+.grid + div + div + div {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: var(--ttt-text-secondary);
+  font-size: clamp(0.9375rem, 2.5vw, 1.0625rem);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .grid {
+    gap: 0.375rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    max-width: 20rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .grid {
+    --ttt-surface: #111113;
+    --ttt-surface-muted: #18181b;
+    --ttt-cell-bg: #09090b;
+    --ttt-border: #27272a;
+    --ttt-text: #fafafa;
+    --ttt-text-secondary: #a1a1aa;
+    --ttt-accent: #fafafa;
+  }
+
+  .grid + div button {
+    color: #18181b;
+  }
 }

@@ -31,10 +31,47 @@
   line-height: 1.5;
 }
 
+.statusMessage {
+  margin-bottom: 0.875rem;
+  color: var(--text-secondary, #52525b);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.changeMode {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.changeMode button {
+  min-height: 2.75rem;
+  padding: 0.625rem 1.25rem;
+  border: 0.0625rem solid var(--border, #e4e4e7);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary, #52525b);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.changeMode button:hover {
+  border-color: var(--text-primary, #0a0a0a);
+  color: var(--text-primary, #0a0a0a);
+}
+
 @media (prefers-color-scheme: dark) {
   .panel {
     --surface-muted: #18181b;
     --text-secondary: #a1a1aa;
+    --text-primary: #fafafa;
     --border: #27272a;
+  }
+
+  .changeMode button:hover {
+    border-color: #fafafa;
+    color: #fafafa;
   }
 }
