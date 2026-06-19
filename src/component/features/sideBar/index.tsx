@@ -7,6 +7,7 @@ type SideBarProps = {
   username: string;
   onClose: () => void;
   onLogout: () => void;
+  isLoggingOut?: boolean;
 };
 
 const NAV_ITEMS = [
@@ -19,6 +20,7 @@ export default function SideBar({
   username,
   onClose,
   onLogout,
+  isLoggingOut = false,
 }: SideBarProps) {
   const router = useRouter();
 
@@ -51,8 +53,13 @@ export default function SideBar({
       </nav>
 
       <div className={styles.footer}>
-        <button type="button" className={styles.logout} onClick={onLogout}>
-          Log out
+        <button
+          type="button"
+          className={styles.logout}
+          onClick={onLogout}
+          disabled={isLoggingOut}
+        >
+          {isLoggingOut ? "Logging out..." : "Log out"}
         </button>
       </div>
     </aside>

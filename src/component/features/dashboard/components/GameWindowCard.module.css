@@ -1,0 +1,72 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1.25rem;
+  border: 0.0625rem solid var(--border, #e4e4e7);
+  background: var(--surface, #ffffff);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover:not(:disabled) {
+  transform: translateY(-0.125rem);
+  border-color: var(--text-primary, #0a0a0a);
+}
+
+.card:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.badge {
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: var(--surface-muted, #f4f4f5);
+  color: var(--text-secondary, #52525b);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badgeSoon {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.description {
+  color: var(--text-secondary, #52525b);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    --surface: #111113;
+    --surface-muted: #18181b;
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --border: #27272a;
+  }
+
+  .badgeSoon {
+    background: #422006;
+    color: #fcd34d;
+  }
+}

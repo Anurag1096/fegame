@@ -7,6 +7,7 @@ import styles from "./DashboardLayout.module.css";
 export default function DashboardLayout({
   username,
   onLogout,
+  isLoggingOut = false,
   children,
 }: DashboardLayoutProps) {
   const { isOpen, toggle, close } = useSidebar();
@@ -18,6 +19,7 @@ export default function DashboardLayout({
         username={username}
         onClose={close}
         onLogout={onLogout}
+        isLoggingOut={isLoggingOut}
       />
 
       {isOpen && (
