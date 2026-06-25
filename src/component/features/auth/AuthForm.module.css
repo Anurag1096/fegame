@@ -111,6 +111,55 @@
   line-height: 1.4;
 }
 
+.oauthSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.oauthDivider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+}
+
+.oauthDivider::before,
+.oauthDivider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.oauthButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.oauthButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.oauthButton:hover {
+  background: var(--surface-muted);
+}
+
 .footerText {
   margin-top: 20px;
   text-align: center;

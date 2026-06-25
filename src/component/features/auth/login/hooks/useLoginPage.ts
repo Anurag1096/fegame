@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ApiError } from "@/lib/auth/types";
 import { useLoginMutation } from "../../hooks/useAuthSession";
@@ -15,12 +15,27 @@ const COPY: AuthPageCopy = {
   footerHref: "/signup",
 };
 
+const OAUTH_ERROR_MESSAGES: Record<string, string> = {
+  oauth_failed: "OAuth sign-in failed. Please try again or use your password.",
+  oauth_unavailable: "OAuth is not configured on the server yet.",
+};
+
 export function useLoginPage() {
   const router = useRouter();
   const loginMutation = useLoginMutation();
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [oauthError, setOauthError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const errorCode = router.query.error;
+    if (typeof errorCode !== "string") {
+      return;
+    }
+
+    setOauthError(OAUTH_ERROR_MESSAGES[errorCode] ?? OAUTH_ERROR_MESSAGES.oauth_failed);
+  }, [router.query.error]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,11 +49,12 @@ export function useLoginPage() {
   }
 
   const error =
-    loginMutation.error instanceof ApiError
+    oauthError ??
+    (loginMutation.error instanceof ApiError
       ? loginMutation.error.message
       : loginMutation.error
         ? "Unable to log in. Please try again."
-        : null;
+        : null);
 
   return {
     userName,

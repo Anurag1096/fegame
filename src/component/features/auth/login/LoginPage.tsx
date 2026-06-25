@@ -1,5 +1,6 @@
 import { Squircle } from "@squircle-js/react";
 import AuthLayout from "../components/AuthLayout";
+import OAuthButtons from "../components/OAuthButtons";
 import styles from "../AuthForm.module.css";
 import { useLoginPage } from "./hooks/useLoginPage";
 
@@ -64,6 +65,8 @@ export default function LoginPage() {
           </button>
         </Squircle>
       </form>
+
+      <OAuthButtons />
     </AuthLayout>
   );
 }
